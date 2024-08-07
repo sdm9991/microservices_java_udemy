@@ -75,7 +75,7 @@ services:
       <<: *loki-dns
 
   alloy:
-    image: grafana/alloy:latest
+    image: grafana/alloy:v1.0.0
     volumes:
       - ../observability/alloy/alloy-local-config.yaml:/etc/alloy/config.alloy:ro
       - /var/run/docker.sock:/var/run/docker.sock
@@ -89,7 +89,7 @@ services:
       service: network-deploy-service
 
   minio:
-    image: minio/minio
+    image: minio/minio:RELEASE.2024-05-27T19-17-46Z
     entrypoint:
       - sh
       - -euc
@@ -127,7 +127,7 @@ services:
       service: network-deploy-service
 
   tempo:
-    image: grafana/tempo
+    image: grafana/tempo:2.4.2
     container_name: tempo
     command: -config.file /etc/tempo-config.yml
     ports:
@@ -140,7 +140,7 @@ services:
       service: network-deploy-service
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:11.0.0
     environment:
       - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
       - GF_AUTH_ANONYMOUS_ENABLED=true
@@ -180,7 +180,7 @@ services:
       service: network-deploy-service
 
   gateway:
-    image: nginx:latest
+    image: nginx:1.25.5
     depends_on:
       - read
       - write
